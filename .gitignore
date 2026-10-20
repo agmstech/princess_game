@@ -9,6 +9,8 @@
 .externalNativeBuild/
 .cxx/
 *.apk
+!/apk/*.apk
 *.aab
 *.keystore
+!/keystore/debug.keystore
 *.jks

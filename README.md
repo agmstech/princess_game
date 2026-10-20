@@ -21,6 +21,23 @@ The game has no ads, needs no internet connection and asks for no permissions.
   <img src="docs/landscape.png" width="70%" alt="Landscape layout on a wide screen">
 </p>
 
+## Install the ready-made APK
+
+[**Download princess-dress-up-1.0.apk**](https://github.com/agmstech/princess_game/raw/claude/sleepy-bohr-ibuv3l/apk/princess-dress-up-1.0.apk)
+(about 230 KB, Android 8.0 or newer). The repository is private, so open the
+link in a browser that is signed in to GitHub.
+
+1. Open the link on the Android phone or tablet (or copy the file over USB).
+2. Tap the downloaded file. If Android asks, allow your browser or file manager
+   to **install unknown apps**, then tap **Install**.
+3. Open **Princess Dress-Up**. Before handing it over, tap ⚙️ to create the
+   parent password and set the daily minutes.
+
+SHA-256: `3748adfb9ecb50a2f84b3e256f8dbb1d3af112121d99575719663d744da9b10c`
+
+The APK is signed with the shared debug key in `keystore/`, the same key the
+Gradle build uses, so a newer build installs over it and keeps the saved game.
+
 ## What children can do
 
 | Tab | Choices |
@@ -89,8 +106,16 @@ portrait and landscape.
 * **Art previews:** `./gradlew testDebugUnitTest --tests '*ArtPreviewTest*' -Dpreview.dir=/tmp/previews`
   writes SVG contact sheets of every item and background.
 
-To publish on Google Play, create a release signing key and run
-`./gradlew bundleRelease`.
+Debug and release builds are both signed with `keystore/debug.keystore`
+(password `android`). To publish on Google Play, create your own upload key,
+point `signingConfig` at it, and run `./gradlew bundleRelease`.
+
+The APK in `apk/` was built from this source without the Android Gradle
+Plugin, which was not reachable in the build environment. It went through the
+Kotlin 2.1.21 compiler (Java 8 bytecode), ProGuard 7.6.1 (shrinks the Kotlin
+library and converts its lambdas for Android), `dx`, `aapt`, `zipalign` and
+`apksigner`. Android Studio produces the same app through the normal Gradle
+build.
 
 ## How it is made
 

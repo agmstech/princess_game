@@ -15,6 +15,19 @@ android {
         versionName = "1.0"
     }
 
+    // A shared, non-secret debug key (password "android"), so the ready-made APK
+    // in apk/ and anything built from Android Studio can update one another
+    // without uninstalling, which would erase the child's saved progress.
+    // Use your own upload key for Google Play.
+    signingConfigs {
+        getByName("debug") {
+            storeFile = rootProject.file("keystore/debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = true
@@ -23,6 +36,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
